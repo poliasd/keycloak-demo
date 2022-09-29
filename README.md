@@ -16,7 +16,7 @@ Keycloak has to be added as an [OAuth consumer in Bitbucket](https://support.atl
 4. As a callback URL enter: *{keycloak url}/auth/realms/{realm name}/broker/bitbucket/endpoint*
 5. Set read account permissions
 
-After you press the button save you will see Key and Secret. The key and secret have to be set as values to variables: **bitbucket_client_id** and **bitbucket_client_secret**.  
+After you press the save button, you will see Key and Secret. The key and secret have to be set as values to variables: **bitbucket_client_id** and **bitbucket_client_secret**.  
 
 Add values to the following variables defined in [tf/variables.tf](tf/variables.tf):
 * keycloak_url
