@@ -31,26 +31,26 @@ Add values to the following variables defined in [tf/variables.tf](tf/variables.
 
 ### Terraform modules
 
-####keycloak-realm
+#### keycloak-realm
 Creates Keycloak realm
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#proc-creating-a-realm_server_administration_guide
 
-####keycloak-idp-bitbucket
+#### keycloak-idp-bitbucket
 Adds Bitbucket as an Identity provider
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#bitbucket
 
-####keycloak-saml-sonarqube 
+#### keycloak-saml-sonarqube 
 Adds Sonarqube as a client using SAML protocol
 **Documentation**: https://docs.sonarqube.org/latest/instance-administration/delegated-auth/
 
-####sonarqube
+#### sonarqube
 Adding SAML authentication in Sonarqube (sonar.auth.saml.certificate.secured has to be manually added, it is not supported by the Terraform module)
 **Documentation**: https://docs.sonarqube.org/latest/instance-administration/delegated-auth/
 
-####keycloak-openid-vault
+#### keycloak-openid-vault
 Adds Vault as a client using OpenID Connect protocol
 **Documentation**: https://www.vaultproject.io/docs/auth/jwt/oidc-providers/keycloak
 
-####vault
+#### vault
 Adds OpenID Connect authentication in Vault
 **Documentation**: 
