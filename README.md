@@ -31,26 +31,25 @@ Add values to the following variables defined in [tf/variables.tf](tf/variables.
 
 ### Terraform modules
 
-#### keycloak-realm
-Creates Keycloak realm
+#### [keycloak-realm](tf/keycloak-realm)
+Creates Keycloak realm\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#proc-creating-a-realm_server_administration_guide
 
-#### keycloak-idp-bitbucket
-Adds Bitbucket as an Identity provider
+#### [keycloak-idp-bitbucket](tf/)
+Adds Bitbucket as an Identity provider\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#bitbucket
 
-#### keycloak-saml-sonarqube 
-Adds Sonarqube as a client using SAML protocol
+#### [keycloak-saml-sonarqube](tf/) 
+Adds Sonarqube as a client using SAML protocol\
 **Documentation**: https://docs.sonarqube.org/latest/instance-administration/delegated-auth/
 
-#### sonarqube
-Adding SAML authentication in Sonarqube (sonar.auth.saml.certificate.secured has to be manually added, it is not supported by the Terraform module)
+#### [sonarqube](tf/)
+Adding SAML authentication in Sonarqube (sonar.auth.saml.certificate.secured has to be manually added, it is not supported by the Terraform module)\
 **Documentation**: https://docs.sonarqube.org/latest/instance-administration/delegated-auth/
 
-#### keycloak-openid-vault
-Adds Vault as a client using OpenID Connect protocol
+#### [keycloak-openid-vault](tf/)
+Adds Vault as a client using OpenID Connect protocol\
 **Documentation**: https://www.vaultproject.io/docs/auth/jwt/oidc-providers/keycloak
 
-#### vault
+#### [vault](tf/)
 Adds OpenID Connect authentication in Vault
-**Documentation**: 
