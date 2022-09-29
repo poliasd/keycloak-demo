@@ -53,3 +53,9 @@ Adds Vault as a client using OpenID Connect protocol\
 
 #### [vault](tf/vault)
 Adds OpenID Connect authentication in Vault
+
+### Running terraform 
+After you have successfully added Keycloak as an OAuth consumer and you have added the variables run:
+```shell
+terraform apply
+```
