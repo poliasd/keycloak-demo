@@ -1,5 +1,23 @@
+terraform {
+  required_version = ">= 0.13"
+
+  required_providers {
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = ">= 3.10.0"
+    }
+  }
+}
+
+provider "keycloak" {
+  client_id     = var.keycloak_client_id
+  username      = var.keycloak_username
+  password      = var.keycloak_password
+  url           = var.keycloak_url
+}
+
 resource "keycloak_openid_client" "openid_client" {
-  realm_id                            = keycloak_realm.realm.id
+  realm_id                            = var.realm_id
   client_id                           = "vault-openid-client"
   name                                = "vault-openid"
   enabled                             = true
@@ -13,7 +31,7 @@ resource "keycloak_openid_client" "openid_client" {
 }
 
 resource "keycloak_generic_client_protocol_mapper" "openid_username_mapper" {
-  realm_id          = keycloak_realm.realm.id
+  realm_id          = var.realm_id
   client_id         = keycloak_openid_client.openid_client.id
   name              = "username"
   protocol          = "openid-connect"
@@ -29,7 +47,7 @@ resource "keycloak_generic_client_protocol_mapper" "openid_username_mapper" {
 }
 
 resource "keycloak_generic_client_protocol_mapper" "openid_email_mapper" {
-  realm_id          = keycloak_realm.realm.id
+  realm_id          = var.realm_id
   client_id         = keycloak_openid_client.openid_client.id
   name              = "email"
   protocol          = "openid-connect"
@@ -45,7 +63,7 @@ resource "keycloak_generic_client_protocol_mapper" "openid_email_mapper" {
 }
 
 resource "keycloak_generic_client_protocol_mapper" "openid_full_name_mapper" {
-  realm_id          = keycloak_realm.realm.id
+  realm_id       = var.realm_id
   client_id         = keycloak_openid_client.openid_client.id
   name              = "full name"
   protocol          = "openid-connect"
@@ -58,7 +76,7 @@ resource "keycloak_generic_client_protocol_mapper" "openid_full_name_mapper" {
 }
 
 resource "keycloak_generic_client_protocol_mapper" "openid_group_mapper" {
-  realm_id          = keycloak_realm.realm.id
+  realm_id          = var.realm_id
   client_id         = keycloak_openid_client.openid_client.id
   name              = "groups"
   protocol          = "openid-connect"
@@ -70,14 +88,4 @@ resource "keycloak_generic_client_protocol_mapper" "openid_group_mapper" {
     "claim.name" = "groups",
     "userinfo.token.claim" = "true"
   }
-}
-
-output "openid_vault_client_id" {
-  description = "Vault OpenID Client ID"
-  value       =  keycloak_openid_client.openid_client.client_id
-}
-
-output "openid_vault_client_secret" {
-  description = "Vault OpenID Client ID"
-  value = keycloak_openid_client.openid_client.client_secret
 }

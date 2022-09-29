@@ -34,12 +34,12 @@ resource "sonarqube_setting" "setting_provider_name" {
 
 resource "sonarqube_setting" "setting_auth_saml_providerId" {
   key   = "sonar.auth.saml.providerId"
-  value = "${var.keycloak_host}/auth/realms/${var.realm}"
+  value = "${var.keycloak_host}/auth/realms/${var.realm_id}"
 }
 
 resource "sonarqube_setting" "setting_login_url" {
   key   = "sonar.auth.saml.loginUrl"
-  value = "${var.keycloak_host}/auth/realms/${var.realm}/protocol/saml"
+  value = "${var.keycloak_host}/auth/realms/${var.realm_id}/protocol/saml"
 }
 
 output "certificate" {

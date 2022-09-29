@@ -1,7 +1,23 @@
-# Configuring SAML
+terraform {
+  required_version = ">= 0.13"
+
+  required_providers {
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = ">= 3.10.0"
+    }
+  }
+}
+
+provider "keycloak" {
+  client_id     = var.keycloak_client_id
+  username      = var.keycloak_username
+  password      = var.keycloak_password
+  url           = var.keycloak_url
+}
 
 resource "keycloak_saml_client" "sonarqube_saml_client" {
-  realm_id  = keycloak_realm.realm.id
+  realm_id  = var.realm_id
   client_id = "sonarqube_saml_client"
   name      = "sonarqube-saml"
 
@@ -17,7 +33,7 @@ resource "keycloak_saml_client" "sonarqube_saml_client" {
 }
 
 resource "keycloak_saml_user_property_protocol_mapper" "saml_user_name_mapper" {
-  realm_id  = keycloak_realm.realm.id
+  realm_id  = var.realm_id
   client_id = keycloak_saml_client.sonarqube_saml_client.id
   name      = "Name"
 
@@ -27,7 +43,7 @@ resource "keycloak_saml_user_property_protocol_mapper" "saml_user_name_mapper" {
 }
 
 resource "keycloak_saml_user_property_protocol_mapper" "saml_user_login_mapper" {
-  realm_id  = keycloak_realm.realm.id
+  realm_id  = var.realm_id
   client_id = keycloak_saml_client.sonarqube_saml_client.id
   name      = "Login"
 
@@ -37,7 +53,7 @@ resource "keycloak_saml_user_property_protocol_mapper" "saml_user_login_mapper" 
 }
 
 resource "keycloak_saml_user_property_protocol_mapper" "saml_user_email_mapper" {
-  realm_id  = keycloak_realm.realm.id
+  realm_id  = var.realm_id
   client_id = keycloak_saml_client.sonarqube_saml_client.id
   name      = "Email"
 
@@ -47,7 +63,7 @@ resource "keycloak_saml_user_property_protocol_mapper" "saml_user_email_mapper" 
 }
 
 resource "keycloak_generic_client_protocol_mapper" "saml_groups_mapper" {
-  realm_id        = keycloak_realm.realm.id
+  realm_id        = var.realm_id
   client_id       = keycloak_saml_client.sonarqube_saml_client.id
   name            = "Groups"
   protocol        = "saml"
@@ -58,12 +74,7 @@ resource "keycloak_generic_client_protocol_mapper" "saml_groups_mapper" {
 }
 
 data "keycloak_realm_keys" "realm_RS256_key" {
-  realm_id   = keycloak_realm.realm.id
+  realm_id   = var.realm_id
   algorithms = ["RS256"]
   status     = ["ACTIVE"]
-}
-
-output "saml_sonarqube_client_id" {
-  description = "Sonarqube SAML Client ID"
-  value       = keycloak_saml_client.sonarqube_saml_client.client_id
 }

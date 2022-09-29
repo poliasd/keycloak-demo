@@ -33,7 +33,7 @@ variable "default_group" {
   type        = string
 }
 
-variable "realm" {
+variable "realm_id" {
   description = "Realm id"
   type = string
 }

@@ -1,3 +1,21 @@
+terraform {
+  required_version = ">= 0.13"
+
+  required_providers {
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = ">= 3.10.0"
+    }
+  }
+}
+
+provider "keycloak" {
+  client_id     = var.keycloak_client_id
+  username      = var.keycloak_username
+  password      = var.keycloak_password
+  url           = var.keycloak_url
+}
+
 resource "keycloak_realm" "realm" {
   realm             = var.keycloak_realm
   enabled           = true
@@ -49,10 +67,8 @@ resource "keycloak_default_groups" "default" {
   ]
 }
 
-output "realm" {
-  value = keycloak_realm.realm.id
-}
-
-output "provider_certificate" {
-  value = data.keycloak_realm_keys.realm_RS256_key.keys[0].certificate
+data "keycloak_realm_keys" "realm_RS256_key" {
+  realm_id   = keycloak_realm.realm.id
+  algorithms = ["RS256"]
+  status     = ["ACTIVE"]
 }
