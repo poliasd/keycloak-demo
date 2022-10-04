@@ -72,3 +72,4 @@ data "keycloak_realm_keys" "realm_RS256_key" {
   algorithms = ["RS256"]
   status     = ["ACTIVE"]
 }
+

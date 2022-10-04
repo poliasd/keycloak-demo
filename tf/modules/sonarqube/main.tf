@@ -42,10 +42,6 @@ resource "sonarqube_setting" "setting_login_url" {
   value = "${var.keycloak_host}/auth/realms/${var.realm_id}/protocol/saml"
 }
 
-output "certificate" {
-  value = var.provider_certificate
-}
-
 resource "sonarqube_setting" "setting_user_login_attribute" {
   key   = "sonar.auth.saml.user.login"
   value = "login"
@@ -69,9 +65,4 @@ resource "sonarqube_setting" "setting_groups" {
 resource "sonarqube_group" "project_users" {
     name        = var.default_group
     description = "Default group"
-}
-
-resource "sonarqube_permissions" "my_global_admins" {
-    group_name  = var.default_group
-    permissions = ["admin"]
 }
