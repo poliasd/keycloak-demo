@@ -28,30 +28,3 @@ resource "keycloak_oidc_identity_provider" "bitbucket_identity_provider" {
   default_scopes    = ""
   sync_mode         = "IMPORT"
 }
-
-resource "keycloak_custom_identity_provider_mapper" "oidc_email_mapper" {
-  realm        = var.realm_id
-  name                     = "email"
-  identity_provider_alias  = keycloak_oidc_identity_provider.bitbucket_identity_provider.alias
-  identity_provider_mapper = "hardcoded-user-session-attribute-idp-mapper"
-  # extra_config with syncMode is required in Keycloak 10+
-  extra_config = {
-    "syncMode"        = "INHERIT"
-    "attribute"       = "email"
-    "attribute.value" = "email"
-  }
-}
-
-resource "keycloak_custom_identity_provider_mapper" "oidc_group_mapper" {
-  realm                    = var.realm_id
-  name                     = "groups"
-  identity_provider_alias  = keycloak_oidc_identity_provider.bitbucket_identity_provider.alias
-  identity_provider_mapper = "hardcoded-user-session-attribute-idp-mapper"
-
-  # extra_config with syncMode is required in Keycloak 10+
-  extra_config = {
-    "syncMode"        = "INHERIT"
-    "attribute"       = "department"
-    "attribute.value" = "department"
-  }
-}
