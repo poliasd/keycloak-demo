@@ -22,6 +22,17 @@ module "keycloak-idp-bitbucket" {
   realm_id                    = module.keycloak-realm.realm
 }
 
+module "keycloak-idp-github" {
+  source                      = "./modules/keycloak-idp-github"
+  keycloak_client_id          = "admin-cli"
+  keycloak_username           = var.keycloak_user
+  keycloak_password           = var.keycloak_pass
+  keycloak_url                = var.keycloak_url
+  github_client_id            = var.github_client_id
+  github_client_secret        = var.github_client_secret
+  realm_id                    = module.keycloak-realm.realm
+}
+
 module "keycloak-saml-sonarqube" {
   source = "./modules/keycloak-saml-sonarqube"
   keycloak_client_id          = "admin-cli"
