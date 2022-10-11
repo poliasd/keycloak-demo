@@ -8,7 +8,8 @@ This repository contains terraform scripts for configuring:
 ![Keycloak as an Identity broker](keycloak-identity-broker.jpeg)
 
 ### Prerequisites
-Keycloak has to be added as an [OAuth consumer in Bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/integrate-another-application-through-oauth/). 
+#### Adding Keycloak as an OAuth consumer in Bitbucket 
+Adding Keycloak as an [OAuth consumer in Bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/integrate-another-application-through-oauth/). 
 
 1. Navigate to https://bitbucket.org/.
 2. Choose a workspace -> Settings -> OAuth consumers
@@ -17,6 +18,22 @@ Keycloak has to be added as an [OAuth consumer in Bitbucket](https://support.atl
 5. Set read account permissions
 
 After you press the save button, you will see Key and Secret. The key and secret have to be set as values to variables: **bitbucket_client_id** and **bitbucket_client_secret**.  
+
+#### Adding Keycloak as an OAuth app in GitHub
+Adding Keycloak as an [OAuth App](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)
+
+1. Navigate to https://github.com/
+2. Choose Your organzations from the upper-right corner
+3. Click Settings next to the organzation name
+4. Scroll down and expand Developer settings
+5. Select OAuth Apps
+6. Click New OAuth App
+7. Enter Application name
+8. In "Homepage URL", type the full URL to your app's website
+9. In "Authorization callback URL", type the callback URL of your app: {keycloak url}/auth/realms/{realm name}/broker/github/endpoint
+
+After you click on Register application you will see a Cliend ID. This is the value of **github_client_id**.
+Generate a new Client secrets and set it as value to **github_client_secret**.
 
 Add values to the following variables defined in [tf/variables.tf](tf/variables.tf):
 * keycloak_url
@@ -28,6 +45,8 @@ Add values to the following variables defined in [tf/variables.tf](tf/variables.
 * default_group
 * bitbucket_client_id
 * bitbucket_client_secret
+* github_client_id
+* github_client_secret
 
 ### Terraform modules
 
@@ -38,6 +57,10 @@ Creates Keycloak realm\
 #### [keycloak-idp-bitbucket](tf/keycloak-idp-bitbucket)
 Adds Bitbucket as an Identity provider\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#bitbucket
+
+#### [keycloak-idp-bitbucket](tf/keycloak-idp-github)
+Adds GitHub as an Identity provider\
+**Documentation**: https://www.keycloak.org/docs/latest/server_admin/#_github
 
 #### [keycloak-idp-bitbucket](tf/keycloak-idp-bitbucket) 
 Adds Sonarqube as a client using SAML protocol\

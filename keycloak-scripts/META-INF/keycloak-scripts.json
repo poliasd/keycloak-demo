@@ -1,0 +1,9 @@
+{
+  "authenticators": [
+    {
+      "name": "Email domain Verifier Authenticator",
+      "fileName": "email-domain-verifier.js",
+      "description": "Verification of email domain."
+    }
+  ]
+}

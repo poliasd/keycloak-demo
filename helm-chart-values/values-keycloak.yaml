@@ -1,0 +1,39 @@
+version: 10.1.2
+extraEnvVars:
+  - name: KEYCLOAK_LOG_LEVEL
+    value: DEBUG
+  - name: KEYCLOAK_EXTRA_ARGS
+    value: -Dkeycloak.profile.feature.scripts=enabled
+
+extraVolumes:
+  - name: scripts
+    emptyDir: {}
+
+auth:
+  adminUser: admin
+  adminPassword: demo
+
+extraVolumeMounts:
+  - name: scripts
+    mountPath: /opt/bitnami/keycloak/providers/
+
+initContainers:
+  - name: init
+    image: "netdata/wget"
+    command:
+      - wget
+      - https://poliasd.jfrog.io/artifactory/custom/email-domain-check.jar
+      - -P
+      - /opt/bitnami/keycloak/providers/
+    volumeMounts:
+      - name: scripts
+        mountPath: /opt/bitnami/keycloak/providers/
+
+service:
+  type: LoadBalancer
+
+httpRelativePath: "/auth/"
+
+initdbScripts:
+  init_script.sh: |
+    /opt/bitnami/keycloak/bin/kc.sh build
