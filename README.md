@@ -60,6 +60,12 @@ Add values to the following variables defined in [tf/variables.tf](tf/variables.
 Creates Keycloak realm\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#proc-creating-a-realm_server_administration_guide
 
+#### [keycloak-authentication-flow](tf/keycloak-authentication-flow)
+Adds an authentication flow using a [javascript provider](keycloak-scripts)) which will be added as a Post Login Flow in the Identity Providers.
+In order to use this flow the jar containing the javascript needs to be deployed and the Scripts in keycloak need to be enabled. 
+You can do this by using a [helm chart](helm-chart-values)
+**Documentation**:https://www.keycloak.org/docs/latest/server_development/#_auth_spi
+
 #### [keycloak-idp-bitbucket](tf/keycloak-idp-bitbucket)
 Adds Bitbucket as an Identity provider\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#bitbucket
