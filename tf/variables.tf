@@ -26,6 +26,7 @@ variable "sonarqube_user" {
 variable "sonarqube_pass" {
   description = "Sonarqube password"
   type        = string
+  default     = "sonarqube"
 }
 
 variable "vault_url" {
@@ -48,7 +49,28 @@ variable "bitbucket_client_secret" {
   type        = string
 }
 
+variable "github_client_id" {
+  description = "github OAuth client_id"
+  type        = string
+}
+
+variable "github_client_secret" {
+  description = "github OAuth client_secret"
+  type        = string
+}
+
+variable "gitlab_client_id" {
+  description = "github OAuth client_id"
+  type        = string
+}
+
+variable "gitlab_client_secret" {
+  description = "github OAuth client_secret"
+  type        = string
+}
+
 variable "default_group" {
   description = "Default group"
   type        = string
+  default     = "kcd-mena"
 }
