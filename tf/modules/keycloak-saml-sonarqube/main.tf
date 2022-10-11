@@ -32,11 +32,11 @@ resource "keycloak_saml_client" "sonarqube_saml_client" {
   client_signature_required = false
 }
 
-resource "keycloak_saml_client_default_scopes" "client_default_scopes" {
-  realm_id  = var.realm_id
-  client_id = keycloak_saml_client.sonarqube_saml_client.id
-  default_scopes = []
-}
+#resource "keycloak_saml_client_default_scopes" "client_default_scopes" {
+#  realm_id  = var.realm_id
+#  client_id = keycloak_saml_client.sonarqube_saml_client.id
+#  default_scopes = []
+#}
 
 resource "keycloak_saml_user_property_protocol_mapper" "saml_user_name_mapper" {
   realm_id  = var.realm_id

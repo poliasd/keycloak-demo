@@ -15,14 +15,14 @@ provider "keycloak" {
   url           = var.keycloak_url
 }
 
-resource "keycloak_oidc_identity_provider" "gthub_identity_provider" {
+resource "keycloak_oidc_identity_provider" "gitlab_identity_provider" {
   realm                         = var.realm_id
-  alias                         = "github"
-  authorization_url             = "https://github.com/"
-  client_id                     = var.github_client_id
-  client_secret                 = var.github_client_secret
-  token_url                     = "https://bitbucket.org/site/oauth2/access_token"
-  provider_id                   = "github"
+  alias                         = "gitlab"
+  authorization_url             = "https://gitlab.com/"
+  client_id                     = var.gitlab_client_id
+  client_secret                 = var.gitlab_client_secret
+  token_url                     = "https://gitlab.com/site/oauth2/access_token"
+  provider_id                   = "gitlab"
   trust_email                   = "true"
   store_token                   = "false"
   default_scopes                = ""
@@ -34,7 +34,7 @@ resource "keycloak_oidc_identity_provider" "gthub_identity_provider" {
 resource "keycloak_custom_identity_provider_mapper" "oidc" {
   realm                    = var.realm_id
   name                     = "emailDomain"
-  identity_provider_alias  = keycloak_oidc_identity_provider.gthub_identity_provider.alias
+  identity_provider_alias  = keycloak_oidc_identity_provider.gitlab_identity_provider.alias
   identity_provider_mapper = "hardcoded-user-session-attribute-idp-mapper"
 
   # extra_config with syncMode is required in Keycloak 10+

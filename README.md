@@ -1,11 +1,11 @@
 # Keycloak used as identity broker 
 This repository contains terraform scripts for configuring:
 * Keycloak as an Identity broker 
-* Bitbucket as an Identity provider
+* Bitbucket, GitLab and GitHub as Identity providers
 * Sonarqube as a client using SAML protocol
 * Vault as a client using OpenID Connect protocol
 
-![Keycloak as an Identity broker](keycloak-identity-broker.jpeg)
+![Keycloak as an Identity broker](keycloak-identity-broker.png)
 
 ### Prerequisites
 #### Adding Keycloak as an OAuth consumer in Bitbucket 
@@ -35,6 +35,10 @@ Adding Keycloak as an [OAuth App](https://docs.github.com/en/developers/apps/bui
 After you click on Register application you will see a Cliend ID. This is the value of **github_client_id**.
 Generate a new Client secrets and set it as value to **github_client_secret**.
 
+#### Adding Keycloak as an OAuth app in GitLab
+Adding Keycloak as an [OAuth consumer in GitLab](https://docs.gitlab.com/ee/integration/oauth_provider.html
+You can add it as [user owned application](https://docs.gitlab.com/ee/integration/oauth_provider.html#user-owned-applications), [group owned application](https://docs.gitlab.com/ee/integration/oauth_provider.html#group-owned-applications) or [instance wide applications](https://docs.gitlab.com/ee/integration/oauth_provider.html#instance-wide-application)
+
 Add values to the following variables defined in [tf/variables.tf](tf/variables.tf):
 * keycloak_url
 * keycloak_user
@@ -47,12 +51,20 @@ Add values to the following variables defined in [tf/variables.tf](tf/variables.
 * bitbucket_client_secret
 * github_client_id
 * github_client_secret
+* gitlab_client_id
+* gitlab_client_secret
 
 ### Terraform modules
 
 #### [keycloak-realm](tf/keycloak-realm)
 Creates Keycloak realm\
 **Documentation**: https://www.keycloak.org/docs/latest/server_admin/#proc-creating-a-realm_server_administration_guide
+
+#### [keycloak-authentication-flow](tf/keycloak-authentication-flow)
+Adds an authentication flow using a [javascript provider](keycloak-scripts)) which will be added as a Post Login Flow in the Identity Providers.
+In order to use this flow the jar containing the javascript needs to be deployed and the Scripts in keycloak need to be enabled. 
+You can do this by using a [helm chart](helm-chart-values)
+**Documentation**:https://www.keycloak.org/docs/latest/server_development/#_auth_spi
 
 #### [keycloak-idp-bitbucket](tf/keycloak-idp-bitbucket)
 Adds Bitbucket as an Identity provider\

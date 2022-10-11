@@ -52,6 +52,8 @@ resource "keycloak_realm" "realm" {
       failure_reset_time_seconds        = 43200
     }
   }
+
+#  default_optional_client_scopes = ["role_list"]
 }
 
 #Configure default groups
