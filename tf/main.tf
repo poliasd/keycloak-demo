@@ -11,6 +11,15 @@ module "keycloak-realm" {
   default_group               = var.default_group
 }
 
+module "keycloak-authentication-flow" {
+  source                      = "./modules/keycloak-authentication-flow"
+  keycloak_client_id          = "admin-cli"
+  keycloak_username           = var.keycloak_user
+  keycloak_password           = var.keycloak_pass
+  keycloak_url                = var.keycloak_url
+  realm_id                    = module.keycloak-realm.realm
+}
+
 module "keycloak-idp-bitbucket" {
   source                      = "./modules/keycloak-idp-bitbucket"
   keycloak_client_id          = "admin-cli"
@@ -19,6 +28,17 @@ module "keycloak-idp-bitbucket" {
   keycloak_url                = var.keycloak_url
   bitbucket_client_id         = var.bitbucket_client_id
   bitbucket_client_secret     = var.bitbucket_client_secret
+  realm_id                    = module.keycloak-realm.realm
+}
+
+module "keycloak-idp-gitlab" {
+  source                      = "./modules/keycloak-idp-gitlab"
+  keycloak_client_id          = "admin-cli"
+  keycloak_username           = var.keycloak_user
+  keycloak_password           = var.keycloak_pass
+  keycloak_url                = var.keycloak_url
+  gitlab_client_id            = var.gitlab_client_id
+  gitlab_client_secret        = var.gitlab_client_secret
   realm_id                    = module.keycloak-realm.realm
 }
 
