@@ -5,3 +5,8 @@ This are values for [bitnami/keycloak](https://artifacthub.io/packages/helm/bitn
 - Download a jar file containing the Javascript script to the providers directory in KEYCLOAK_HOME
 - Runs ```kc.sh build``` to deploy the file
 
+To deploy keycloak using the helm chart run:
+
+```shell
+helm upgrade --install keycloak bitnami/keycloak -f values-keycloak.yaml
+```
