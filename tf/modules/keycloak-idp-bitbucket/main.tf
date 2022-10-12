@@ -27,7 +27,6 @@ resource "keycloak_oidc_identity_provider" "bitbucket_identity_provider" {
   store_token                   = "false"
   default_scopes                = ""
   sync_mode                     = "IMPORT"
-  first_broker_login_flow_alias = "browser"
   post_broker_login_flow_alias  = "post login"
 }
 
